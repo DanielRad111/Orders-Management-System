@@ -12,7 +12,7 @@ public class Start {
 
     public static void main(String[] args) throws SQLException {
 
-        Client client = new Client("Daniel", "address", "daniel@address.co", 20);
+        Client client = new Client("Daniel", "daniel@address.co");
 
         ClientBLL clientBLL = new ClientBLL();
         int id = clientBLL.insertClient(client);
