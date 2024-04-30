@@ -1,6 +1,5 @@
 package bll;
 
-import bll.validators.ClientAgeValidator;
 import bll.validators.EmailValidator;
 import bll.validators.Validator;
 import dao.ClientDAO;
@@ -13,7 +12,6 @@ public class ClientBLL {
     public ClientBLL(){
         validators = new ArrayList<Validator<Client>>();
         validators.add(new EmailValidator());
-        validators.add(new ClientAgeValidator());
     }
 
     public Client findClientById(int id){
