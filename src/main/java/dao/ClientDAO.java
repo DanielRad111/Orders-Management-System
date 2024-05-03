@@ -9,14 +9,61 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ClientDAO {
+public class ClientDAO implements DAO<Client>{
     protected static final Logger LOGGER = Logger.getLogger(ClientDAO.class.getName());
     private static final String insertStatementString = "INSERT INTO client (name, email)" + " VALUES (?, ?)";
     private static final String findStatementString = "SELECT * FROM client WHERE id = ?";
     private static final String findByNameStatementString = "SELECT * FROM client WHERE name = ?";
     private static final String findAllStatementString = "SELECT * FROM client";
 
-    public static List<Client> findAll() {
+    @Override
+    public Client findById(int clientId){
+        Client toReturn = null;
+        Connection dbConnection = ConnectionFactory.getConnection();
+        PreparedStatement findStatement = null;
+        ResultSet rs = null;
+        try{
+            findStatement = dbConnection.prepareStatement(findStatementString);
+
+        }catch (SQLException e){
+            LOGGER.log(Level.WARNING, "ClientDAO: findById " + e.getMessage());
+        }finally {
+            ConnectionFactory.close(rs);
+            ConnectionFactory.close(findStatement);
+            ConnectionFactory.close(dbConnection);
+        }
+        return toReturn;
+    }
+
+    @Override
+    public Client findByName(String name){
+        Client toReturn = null;
+        Connection dbConnection = ConnectionFactory.getConnection();
+        PreparedStatement findStatement = null;
+        ResultSet rs = null;
+
+        try {
+            findStatement = dbConnection.prepareStatement(findByNameStatementString);
+            findStatement.setString(1, name);
+            rs = findStatement.getResultSet();
+            while(rs.next()){
+                int id = rs.getInt("id");
+                String email = rs.getString("email");
+                toReturn = new Client(id, name, email);
+            }
+        }catch (SQLException e){
+            LOGGER.log(Level.WARNING, "ClientDAO: findByName " + e.getMessage());
+        }finally {
+            ConnectionFactory.close(rs);
+            ConnectionFactory.close(findStatement);
+            ConnectionFactory.close(dbConnection);
+        }
+
+        return toReturn;
+    }
+
+    @Override
+    public List<Client> findAll() {
         List<Client> clients = new ArrayList<>();
         Connection dbConnection = ConnectionFactory.getConnection();
         PreparedStatement findStatement = null;
@@ -42,25 +89,8 @@ public class ClientDAO {
         return clients;
     }
 
-    public static Client findById(int clientId){
-        Client toReturn = null;
-        Connection dbConnection = ConnectionFactory.getConnection();
-        PreparedStatement findStatement = null;
-        ResultSet rs = null;
-        try{
-            findStatement = dbConnection.prepareStatement(findStatementString);
-
-        }catch (SQLException e){
-            LOGGER.log(Level.WARNING, "ClientDAO: findById " + e.getMessage());
-        }finally {
-            ConnectionFactory.close(rs);
-            ConnectionFactory.close(findStatement);
-            ConnectionFactory.close(dbConnection);
-        }
-        return toReturn;
-    }
-
-    public static int insert(Client client){
+    @Override
+    public int insert(Client client){
         Connection dbConnection = ConnectionFactory.getConnection();
         PreparedStatement insertStatement = null;
         int insertedId = -1;
@@ -83,7 +113,27 @@ public class ClientDAO {
         return insertedId;
     }
 
-    public static void delete(int id){
+    @Override
+    public void update(Client client){
+        Connection dbConnection = ConnectionFactory.getConnection();
+        PreparedStatement updateStatement = null;
+        String updateStatementString = "UPDATE client SET name = ?, email = ? WHERE id = ?";
+        try{
+            updateStatement = dbConnection.prepareStatement(updateStatementString);
+            updateStatement.setString(1, client.getName());
+            updateStatement.setString(2, client.getEmail());
+            updateStatement.setInt(3, client.getId());
+            updateStatement.executeUpdate();
+        }catch (SQLException e){
+            LOGGER.log(Level.WARNING, "ClientDAO: update " + e.getMessage());
+        }finally {
+            ConnectionFactory.close(updateStatement);
+            ConnectionFactory.close(dbConnection);
+        }
+    }
+
+    @Override
+    public void delete(int id){
         Connection dbConnection = ConnectionFactory.getConnection();
         PreparedStatement deleteStatement = null;
         String deleteStatementString = "DELETE FROM client WHERE id = ?";
@@ -98,31 +148,5 @@ public class ClientDAO {
             ConnectionFactory.close(deleteStatement);
             ConnectionFactory.close(dbConnection);
         }
-    }
-
-    public static Client findByName(String name){
-        Client toReturn = null;
-        Connection dbConnection = ConnectionFactory.getConnection();
-        PreparedStatement findStatement = null;
-        ResultSet rs = null;
-
-        try {
-            findStatement = dbConnection.prepareStatement(findByNameStatementString);
-            findStatement.setString(1, name);
-            rs = findStatement.getResultSet();
-            while(rs.next()){
-                int id = rs.getInt("id");
-                String email = rs.getString("email");
-                toReturn = new Client(id, name, email);
-            }
-        }catch (SQLException e){
-            LOGGER.log(Level.WARNING, "ClientDAO: findByName " + e.getMessage());
-        }finally {
-            ConnectionFactory.close(rs);
-            ConnectionFactory.close(findStatement);
-            ConnectionFactory.close(dbConnection);
-        }
-
-        return toReturn;
     }
 }
