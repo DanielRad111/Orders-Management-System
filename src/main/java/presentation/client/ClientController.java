@@ -9,33 +9,45 @@ public class ClientController {
     private ClientView clientView;
     private ClientBLL clientBLL;
 
-    public ClientController(ClientView clientView, ClientBLL clientBLL) {
+    public ClientController(ClientView clientView, ClientBLL clientBLL){
         this.clientView = new ClientView();
         this.clientBLL = new ClientBLL();
 
-        clientView.getAddClientButton().addActionListener(e -> addClient());
-        clientView.getEditClientButton().addActionListener(e -> editClient());
+        clientView.getAddClientButton().addActionListener(e -> {
+            try {
+                addClient();
+            } catch (IllegalAccessException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        clientView.getEditClientButton().addActionListener(e -> {
+            try {
+                editClient();
+            } catch (IllegalAccessException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         clientView.getDeleteClientButton().addActionListener(e -> deleteClient());
 
         refreshTable();
     }
 
-    private void addClient() {
-        String name = clientView.getClientName().getText();
-        String email = clientView.getClientEmail().getText();
+    private void addClient() throws IllegalAccessException {
+        String name = clientView.getClientNameField().getText();
+        String email = clientView.getClientEmailField().getText();
         Client client = new Client(name, email);
         clientBLL.insertClient(client);
 
-        clientView.getClientName().setText("");
-        clientView.getClientEmail().setText("");
+        clientView.getClientNameField().setText("");
+        clientView.getClientEmailField().setText("");
 
         refreshTable();
     }
 
-    private void editClient() {
+    private void editClient() throws IllegalAccessException {
         int id = clientView.getClientId();
-        String name  = clientView.getClientName().getText().trim();
-        String email = clientView.getClientEmail().getText().trim();
+        String name  = clientView.getClientNameField().getText().trim();
+        String email = clientView.getClientEmailField().getText().trim();
 
         if(name.isEmpty() || email.isEmpty()) {
             System.out.println("Name and email are empty!");
@@ -44,8 +56,8 @@ public class ClientController {
         Client client = new Client(id, name, email);
         clientBLL.updateClient(client);
 
-        clientView.getClientName().setText("");
-        clientView.getClientEmail().setText("");
+        clientView.getClientNameField().setText("");
+        clientView.getClientEmailField().setText("");
 
         refreshTable();
     }

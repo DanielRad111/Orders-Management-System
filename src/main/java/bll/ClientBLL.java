@@ -35,14 +35,14 @@ public class ClientBLL {
         return clientDAO.findAll();
     }
 
-    public int insertClient(Client client){
+    public void insertClient(Client client) throws IllegalAccessException {
         for(Validator<Client> validator : validators){
             validator.validate(client);
         }
-        return clientDAO.insert(client);
+        clientDAO.insert(client);
     }
 
-    public void updateClient(Client client){
+    public void updateClient(Client client) throws IllegalAccessException {
         System.out.println("ClientBLL: Updating client with id " + client.getId());
         System.out.println("New name: " + client.getName() + ", new email: " + client.getEmail());
         clientDAO.update(client);

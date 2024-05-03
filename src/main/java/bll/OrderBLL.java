@@ -34,7 +34,7 @@ public class OrderBLL {
         return order;
     }
 
-    public int insertOrder(Order order) throws IllegalAccessException {
+    public boolean insertOrder(Order order) throws IllegalAccessException {
         for(Validator<Order> validator : validators){
             validator.validate(order);
         }

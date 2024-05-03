@@ -28,6 +28,7 @@ public class ProductView extends JFrame {
         setTitle("Products");
         setSize(700, 500);
         setLayout(new FlowLayout());
+        setLocationRelativeTo(null);
 
         add(new JLabel("Product Name:"));
         add(productNameField);
@@ -42,12 +43,12 @@ public class ProductView extends JFrame {
         JScrollPane tableScrollPane = new JScrollPane(productTable);
         add(tableScrollPane);
 
-        setVisible(true);
+        setVisible(false);
         productTable.getSelectionModel().addListSelectionListener(e -> {
             int selectedRow = productTable.getSelectedRow();
             if(selectedRow != -1){
                 productNameField.setText((String)productTable.getValueAt(selectedRow, 1));
-                quantityField.setText((String)productTable.getValueAt(selectedRow, 2));
+                quantityField.setText(productTable.getValueAt(selectedRow, 2).toString());
             }
         });
     }
@@ -62,7 +63,7 @@ public class ProductView extends JFrame {
     public int getproductId(){
         int selectedRow = productTable.getSelectedRow();
         if(selectedRow != -1){
-            return (int)tableModel.getValueAt(selectedRow, 0);
+            return Integer.parseInt(tableModel.getValueAt(selectedRow, 0).toString());
         }else{
             throw new RuntimeException("No product selected");
         }

@@ -5,16 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="accf9c7b-bfd0-4e8a-ae25-d4fa7c47b2bf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/presentation/main/MainView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bll/ClientBLL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bll/ClientBLL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bll/OrderBLL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bll/OrderBLL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bll/ProductBLL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bll/ProductBLL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bll/validators/EmailValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bll/validators/EmailValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bll/validators/Validator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bll/validators/Validator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/connection/ConnectionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/connection/ConnectionFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/AbstractDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/AbstractDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dao/ClientDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ClientDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ProductDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/presentation/Controller.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/presentation/View.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/start/ReflectionExample.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/presentation/client/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/presentation/client/ClientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/presentation/client/ClientView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/presentation/client/ClientView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/presentation/main/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/presentation/main/MainView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/presentation/order/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/presentation/order/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/presentation/order/OrderView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/presentation/order/OrderView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/presentation/product/ProductView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/presentation/product/ProductView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/start/Start.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/start/Start.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -34,6 +39,22 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="SYNC" />
   </component>
+  <component name="GitLabMergeRequestFiltersHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPENED&quot;,
+    &quot;assignee&quot;: {
+      &quot;type&quot;: &quot;org.jetbrains.plugins.gitlab.mergerequest.ui.filters.GitLabMergeRequestsFiltersValue.MergeRequestsMemberFilterValue.MergeRequestsAssigneeFilterValue&quot;,
+      &quot;username&quot;: &quot;MrYosshy&quot;,
+      &quot;fullname&quot;: &quot;Daniel&quot;
+    }
+  }
+}</component>
+  <component name="GitLabMergeRequestsSettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;first&quot;: &quot;https://gitlab.com/MrYosshy/pt2024_30223_daniel_rad_assignment_3.git&quot;,
+    &quot;second&quot;: &quot;ea7cb570-8c9d-4392-a77e-da0151d02734&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -45,28 +66,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.ClientView.executor": "Run",
-    "Application.MainView.executor": "Run",
-    "Application.Start.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/danie/Desktop/PT2021_30229_Contiu_Dragos_Assignment3-master",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.ClientView.executor&quot;: &quot;Run&quot;,
+    &quot;Application.MainView.executor&quot;: &quot;Run&quot;,
+    &quot;Application.OrderView.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Start.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/danie/Desktop/PT2021_30229_Contiu_Dragos_Assignment3-master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
       </set>
     </attachedChunks>
   </component>
@@ -83,6 +108,8 @@
       <workItem from="1714503234772" duration="2325000" />
       <workItem from="1714555395419" duration="7103000" />
       <workItem from="1714651966946" duration="5115000" />
+      <workItem from="1714759363901" duration="1269000" />
+      <workItem from="1714760673669" duration="2655000" />
     </task>
     <servers />
   </component>

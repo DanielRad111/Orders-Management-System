@@ -5,10 +5,7 @@ import connection.ConnectionFactory;
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -106,23 +103,43 @@ public class AbstractDAO <T>{
         return null;
     }
 
-    public T findById(int id){
+    public T findById(int id) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        String query = createSelectQuery("id");
+        try {
+            connection = ConnectionFactory.getConnection();
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, id);
+            resultSet = statement.executeQuery();
+
+            return createObjects(resultSet).get(0);
+        } catch (SQLException e) {
+            LOGGER.log(Level.WARNING, type.getName() + "DAO:findById " + e.getMessage());
+        } finally {
+            ConnectionFactory.close(resultSet);
+            ConnectionFactory.close(statement);
+            ConnectionFactory.close(connection);
+        }
+        return null;
+    }
+
+
+    public T findByName(String name){
         Connection dbConnection = null;
         PreparedStatement findStatement = null;
         ResultSet rs = null;
-        String query = createSelectQuery("id");
+        String query = createSelectQuery("name");
         try{
             dbConnection = ConnectionFactory.getConnection();
             findStatement = dbConnection.prepareStatement(query);
-            findStatement.setInt(1, id);
+            findStatement.setString(1, name);
             rs = findStatement.executeQuery();
 
             return createObjects(rs).get(0);
         }catch (SQLException e){
-            LOGGER.log(Level.WARNING, type.getName() + "DAO:findById " + e.getMessage());
-            return null;
-        }catch (IndexOutOfBoundsException | NullPointerException e){
-            LOGGER.log(Level.WARNING, type.getName() + "DAO:findById " + e.getMessage());
+            LOGGER.log(Level.WARNING, type.getName() + "DAO:findByName " + e.getMessage());
             return null;
         }finally {
             ConnectionFactory.close(rs);
@@ -172,6 +189,7 @@ public class AbstractDAO <T>{
     }
 
 
+
     public List<T> createList(ResultSet rs) throws SQLException, IntrospectionException, InvocationTargetException, InstantiationException, IllegalAccessException {
         List<T> list = new ArrayList<T>();
         Constructor<?>[] constructor = type.getConstructors();
@@ -200,8 +218,8 @@ public class AbstractDAO <T>{
         return list;
     }
 
-    public int insert(T t) throws IllegalAccessException{
-        Connection dbConnection = ConnectionFactory.getConnection();
+    public boolean insert(T t) throws IllegalAccessException{
+        Connection dbConnection = null;
         PreparedStatement insertStatement = null;
         ResultSet rs = null;
 
@@ -226,6 +244,7 @@ public class AbstractDAO <T>{
         }
         String query = createInsertQuery(fields);
         try{
+            dbConnection = ConnectionFactory.getConnection();
             insertStatement = dbConnection.prepareStatement(query);
             for(int i = 0 ; i < cnt; i++){
                 if(args[i] instanceof Integer){
@@ -237,12 +256,13 @@ public class AbstractDAO <T>{
             insertStatement.execute();
         }catch (SQLException e){
             LOGGER.log(Level.WARNING, type.getName() + "DAO:insert " + e.getMessage());
+            return false;
         }finally {
             ConnectionFactory.close(rs);
             ConnectionFactory.close(insertStatement);
             ConnectionFactory.close(dbConnection);
         }
-        return cnt;
+        return true;
     }
 
     public void update(T t) throws IllegalAccessException{

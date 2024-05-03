@@ -31,8 +31,8 @@ public class ProductBLL {
         return productDAO.findAll();
     }
 
-    public int insertProduct(Product product){
-        return productDAO.insert(product);
+    public void insertProduct(Product product){
+        productDAO.insert(product);
     }
 
     public void update(Product product){

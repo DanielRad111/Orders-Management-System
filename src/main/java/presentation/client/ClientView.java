@@ -8,8 +8,8 @@ import java.awt.*;
 import java.util.List;
 
 public class ClientView extends JFrame{
-    private JTextField ClientName = new JTextField(20);
-    private JTextField ClientEmail = new JTextField(20);
+    private JTextField ClientNameField = new JTextField(20);
+    private JTextField ClientEmailField = new JTextField(20);
 
     private JButton addClientButton = new JButton("Add Client");
     private JButton editClientButton = new JButton("Edit Client");
@@ -30,12 +30,13 @@ public class ClientView extends JFrame{
         setTitle("Clients");
         setSize(700, 500);
         setLayout(new FlowLayout());
+        setLocationRelativeTo(null);
 
         add(new JLabel("Client Name"));
-        add(ClientName);
+        add(ClientNameField);
 
         add(new JLabel("Client Email"));
-        add(ClientEmail);
+        add(ClientEmailField);
 
         add(addClientButton);
         add(editClientButton);
@@ -47,12 +48,12 @@ public class ClientView extends JFrame{
         JScrollPane scrollPane = new JScrollPane(clientTable);
         add(scrollPane);
 
-        setVisible(true);
+        setVisible(false);
         clientTable.getSelectionModel().addListSelectionListener(e -> {
             int selectedRow = clientTable.getSelectedRow();
             if(selectedRow != -1){
-                ClientName.setText(clientTable.getValueAt(selectedRow, 1).toString());
-                ClientEmail.setText(clientTable.getValueAt(selectedRow, 2).toString());
+                ClientNameField.setText(clientTable.getValueAt(selectedRow, 1).toString());
+                ClientEmailField.setText(clientTable.getValueAt(selectedRow, 2).toString());
             }
         });
     }
@@ -77,18 +78,18 @@ public class ClientView extends JFrame{
         return addClientButton;
     }
 
-    public JTextField getClientEmail() {
-        return ClientEmail;
+    public JTextField getClientEmailField() {
+        return ClientEmailField;
     }
 
-    public JTextField getClientName() {
-        return ClientName;
+    public JTextField getClientNameField() {
+        return ClientNameField;
     }
 
     public int getClientId(){
         int selectedRow = clientTable.getSelectedRow();
         if(selectedRow != -1){
-            return (int) clientTable.getValueAt(selectedRow, 0);
+            return Integer.parseInt(clientTable.getValueAt(selectedRow, 0).toString());
         }else{
             throw new RuntimeException("No client selected");
         }

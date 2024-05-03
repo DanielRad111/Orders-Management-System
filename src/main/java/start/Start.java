@@ -8,6 +8,8 @@ import bll.ProductBLL;
 import presentation.main.MainView;
 import presentation.client.ClientController;
 import presentation.client.ClientView;
+import presentation.order.OrderController;
+import presentation.order.OrderView;
 import presentation.product.ProductController;
 import presentation.product.ProductView;
 
@@ -36,13 +38,13 @@ public class Start {
 
             // Set up action listeners for the main view buttons
             mainView.getViewClientsButton().addActionListener(e -> clientView.setVisible(true));
-            mainView.getViewClientsButton().addActionListener(e -> productView.setVisible(true));
+            mainView.getViewProductsButton().addActionListener(e -> productView.setVisible(true));
 
 //             Set up action listener for the "View Orders" button
-            mainView.getViewClientsButton().addActionListener(e -> {
-                // Create the Order View and Controller when the button is clicked
-//                OrderView orderView = new OrderView(clientBLL.getAllClientNames(), productBLL.getAllProductNames());
-//                new OrderController(orderView, orderBLL, clientBLL, productBLL);
+            mainView.getViewOrdersButton().addActionListener(e -> {
+//                Create the Order View and Controller when the button is clicked
+                OrderView orderView = new OrderView(clientBLL.getAllClientNames(), productBLL.getAllProductNames());
+                new OrderController(orderView, orderBLL, clientBLL, productBLL);
             });
         });
     }

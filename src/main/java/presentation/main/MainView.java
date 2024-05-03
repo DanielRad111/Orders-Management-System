@@ -18,34 +18,13 @@ public class MainView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 200);
         setLayout(new FlowLayout());
+        setLocationRelativeTo(null);
 
         add(viewClientsButton);
         add(viewProductsButton);
         add(viewOrdersButton);
 
         setVisible(true);
-
-        viewClientsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Open the ClientView when the "View Clients" button is clicked
-                new ClientView();
-            }
-        });
-
-        viewProductsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new ProductView();
-            }
-        });
-
-        viewOrdersButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new OrderView();
-            }
-        });
     }
 
     public JButton getViewClientsButton() {
