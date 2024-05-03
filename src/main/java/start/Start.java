@@ -1,37 +1,49 @@
 package start;
 
-import java.sql.SQLException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import bll.ClientBLL;
-import model.Client;
+import bll.OrderBLL;
+import bll.ProductBLL;
+import presentation.main.MainView;
+import presentation.client.ClientController;
+import presentation.client.ClientView;
+import presentation.product.ProductController;
+import presentation.product.ProductView;
+
+import javax.swing.*;
 
 public class Start {
     protected static final Logger LOGGER = Logger.getLogger(Start.class.getName());
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            // Create the Main View
+            MainView mainView = new MainView();
 
-        Client client = new Client("Daniel", "daniel@address.co");
+            // Create the BLL instances
+            ClientBLL clientBLL = new ClientBLL();
+            ProductBLL productBLL = new ProductBLL();
+            OrderBLL orderBLL = new OrderBLL();
 
-        ClientBLL clientBLL = new ClientBLL();
-        int id = clientBLL.insertClient(client);
-        if (id > 0) {
-            clientBLL.findClientById(id);
-        }
+            // Create the Client and Product Views
+            ClientView clientView = new ClientView();
+            ProductView productView = new ProductView();
 
+            // Create the Controllers and wire the Views and the BLLs
+            ClientController clientController = new ClientController(clientView, clientBLL);
+            ProductController productController = new ProductController(productView, productBLL);
 
-        try {
-            clientBLL.findClientById(1);
-        } catch (Exception ex) {
-            LOGGER.log(Level.INFO, ex.getMessage());
-        }
+            // Set up action listeners for the main view buttons
+            mainView.getViewClientsButton().addActionListener(e -> clientView.setVisible(true));
+            mainView.getViewClientsButton().addActionListener(e -> productView.setVisible(true));
 
-
-        //obtain field-value pairs for object through reflection
-        ReflectionExample.retrieveProperties(client);
+//             Set up action listener for the "View Orders" button
+            mainView.getViewClientsButton().addActionListener(e -> {
+                // Create the Order View and Controller when the button is clicked
+//                OrderView orderView = new OrderView(clientBLL.getAllClientNames(), productBLL.getAllProductNames());
+//                new OrderController(orderView, orderBLL, clientBLL, productBLL);
+            });
+        });
     }
-
-
-
 }
