@@ -11,8 +11,8 @@ public class ClientBLL {
     private List<Validator<Client>> validators;
     ClientDAO clientDAO = new ClientDAO();
     public ClientBLL(){
-        validators = new ArrayList<Validator<Client>>();
-        validators.add(new EmailValidator());
+//        validators = new ArrayList<Validator<Client>>();
+//        validators.add(new EmailValidator());
     }
 
     public Client findClientById(int id){
@@ -35,14 +35,14 @@ public class ClientBLL {
         return clientDAO.findAll();
     }
 
-    public void insertClient(Client client) throws IllegalAccessException {
-        for(Validator<Client> validator : validators){
-            validator.validate(client);
-        }
+    public void insertClient(Client client){
+//        for(Validator<Client> validator : validators){
+//            validator.validate(client);
+//        }
         clientDAO.insert(client);
     }
 
-    public void updateClient(Client client) throws IllegalAccessException {
+    public void updateClient(Client client){
         System.out.println("ClientBLL: Updating client with id " + client.getId());
         System.out.println("New name: " + client.getName() + ", new email: " + client.getEmail());
         clientDAO.update(client);

@@ -7,20 +7,9 @@
     <list default="true" id="accf9c7b-bfd0-4e8a-ae25-d4fa7c47b2bf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bll/ClientBLL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bll/ClientBLL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bll/OrderBLL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bll/OrderBLL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bll/ProductBLL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bll/ProductBLL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bll/validators/EmailValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bll/validators/EmailValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bll/validators/Validator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bll/validators/Validator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/connection/ConnectionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/connection/ConnectionFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/AbstractDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/AbstractDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dao/ClientDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ClientDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ProductDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/presentation/client/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/presentation/client/ClientController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/presentation/client/ClientView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/presentation/client/ClientView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/presentation/main/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/presentation/main/MainView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/presentation/order/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/presentation/order/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/presentation/order/OrderView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/presentation/order/OrderView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/presentation/product/ProductView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/presentation/product/ProductView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/start/Start.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/start/Start.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +98,9 @@
       <workItem from="1714555395419" duration="7103000" />
       <workItem from="1714651966946" duration="5115000" />
       <workItem from="1714759363901" duration="1269000" />
-      <workItem from="1714760673669" duration="2655000" />
+      <workItem from="1714760673669" duration="2684000" />
+      <workItem from="1714844078588" duration="809000" />
+      <workItem from="1714844947908" duration="20000" />
     </task>
     <servers />
   </component>

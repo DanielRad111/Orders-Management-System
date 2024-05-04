@@ -26,7 +26,7 @@ public class ProductDAO implements DAO<Product>{
         try{
             findStatement = dbConnection.prepareStatement(findStatementString);
             findStatement.setInt(1, id);
-            rs = findStatement.getResultSet();
+            rs = findStatement.executeQuery();
             String name = rs.getString("name");
             int quantity = rs.getInt("quantity");
             toReturn = new Product(id, name, quantity);
@@ -50,7 +50,7 @@ public class ProductDAO implements DAO<Product>{
         try{
             findStatement = dbConnection.prepareStatement(findByNameStatementString);
             findStatement.setString(1, name);
-            rs = findStatement.getResultSet();
+            rs = findStatement.executeQuery();
             int id = rs.getInt("id");
             int quantity = rs.getInt("quantity");
             toReturn = new Product(id, name, quantity);
