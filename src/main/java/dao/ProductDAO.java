@@ -10,14 +10,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ProductDAO implements DAO<Product>{
+public class ProductDAO{
     private static final Logger LOGGER = Logger.getLogger(ProductDAO.class.getName());
     private static final String insertStatementString = "INSERT INTO product (name, quantity) VALUES (?, ?)";
     private static final String findStatementString = "SELECT * FROM product WHERE id = ?";
     private static final String findByNameStatementString = "SELECT * FROM product WHERE name = ?";
 
-    @Override
-    public Product findById(int id){
+    public static Product findById(int id){
         Product toReturn = null;
         Connection dbConnection = ConnectionFactory.getConnection();
         PreparedStatement findStatement = null;
@@ -40,8 +39,7 @@ public class ProductDAO implements DAO<Product>{
         return toReturn;
     }
 
-    @Override
-    public Product findByName(String name){
+    public static Product findByName(String name){
         Product toReturn = null;
         Connection dbConnection = ConnectionFactory.getConnection();
         PreparedStatement findStatement = null;
@@ -51,6 +49,8 @@ public class ProductDAO implements DAO<Product>{
             findStatement = dbConnection.prepareStatement(findByNameStatementString);
             findStatement.setString(1, name);
             rs = findStatement.executeQuery();
+            rs.next();
+
             int id = rs.getInt("id");
             int quantity = rs.getInt("quantity");
             toReturn = new Product(id, name, quantity);
@@ -64,7 +64,6 @@ public class ProductDAO implements DAO<Product>{
         return toReturn;
     }
 
-    @Override
     public List<Product> findAll(){
         List<Product> products = new ArrayList<Product>();
 
@@ -93,8 +92,7 @@ public class ProductDAO implements DAO<Product>{
         return products;
     }
 
-    @Override
-    public int insert(Product product){
+    public static int insert(Product product){
         Connection dbConnection = ConnectionFactory.getConnection();
         PreparedStatement insertStatement = null;
         int insertedId = -1;
@@ -117,8 +115,7 @@ public class ProductDAO implements DAO<Product>{
         return insertedId;
     }
 
-    @Override
-    public void update(Product product){
+    public static void update(Product product){
         Connection dbConnection = ConnectionFactory.getConnection();
         PreparedStatement updateStatement = null;
         String updateStatementString = "UPDATE product SET name = ?, quantity = ? WHERE id = ?";
@@ -137,8 +134,7 @@ public class ProductDAO implements DAO<Product>{
         }
     }
 
-    @Override
-    public void delete(int id){
+    public static void delete(int id){
         Connection dbConnection = ConnectionFactory.getConnection();
         PreparedStatement deleteStatement = null;
         String deleteStatementString = "DELETE FROM product WHERE id = ?";

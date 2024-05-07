@@ -31,8 +31,8 @@ public class OrderController {
                     String productName = (String)orderView.getProductBox().getSelectedItem();
                     int quantity = Integer.parseInt(orderView.getQuantityField().getText());
 
-                    Client client = clientBLL.findClientByName(clientName);
-                    Product product = productBLL.findProductByName(productName);
+                    Client client = clientBLL.findByName(clientName);
+                    Product product = productBLL.findByName(productName);
 
                     if(product.getQuantity() >= quantity){
                         Order order = new Order(client.getId(), product.getId(), quantity);

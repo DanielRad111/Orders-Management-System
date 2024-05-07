@@ -1,62 +1,56 @@
 package bll;
 
-import bll.validators.EmailValidator;
-import bll.validators.Validator;
+import java.util.NoSuchElementException;
+import java.util.List;
+import java.util.ArrayList;
+
 import dao.ClientDAO;
 import model.Client;
 
-import java.util.*;
-
 public class ClientBLL {
-    private List<Validator<Client>> validators;
-    ClientDAO clientDAO = new ClientDAO();
-    public ClientBLL(){
-//        validators = new ArrayList<Validator<Client>>();
-//        validators.add(new EmailValidator());
+
+    private final ClientDAO clientDAO;
+
+    public ClientBLL(ClientDAO clientDAO) {
+        this.clientDAO = clientDAO;
     }
 
-    public Client findClientById(int id){
+    public Client findClientById(int id) {
         Client client = clientDAO.findById(id);
-        if(client == null){
-            throw new NoSuchElementException("The client with id " + id + " does not exist");
+        if (client == null) {
+            throw new NoSuchElementException("The client with id =" + id + " was not found!");
         }
         return client;
     }
 
-    public Client findClientByName(String name){
-        Client client = clientDAO.findByName(name);
-        if(client == null){
-            throw new NoSuchElementException("The client with name " + name + " does not exist!");
-        }
-        return client;
+    public void insertClient(Client client) {
+         clientDAO.insert(client);
     }
 
-    public List<Client> findAllClients(){
-        return clientDAO.findAll();
-    }
-
-    public void insertClient(Client client){
-//        for(Validator<Client> validator : validators){
-//            validator.validate(client);
-//        }
-        clientDAO.insert(client);
-    }
-
-    public void updateClient(Client client){
-        System.out.println("ClientBLL: Updating client with id " + client.getId());
+    public void updateClient(Client client) {
+        System.out.println("ClientBLL: Updating client with ID: " + client.getId());
         System.out.println("New name: " + client.getName() + ", new email: " + client.getEmail());
         clientDAO.update(client);
     }
 
-    public void deleteClient(int id){
+    public void deleteClient(int id) {
         clientDAO.delete(id);
     }
 
-    public List<String> getAllClientNames(){
+    public List<Client> findAllClients() {
+        return clientDAO.findAll();
+    }
+
+    public Client findByName(String name) {
+        return clientDAO.findByName(name);
+    }
+
+    public List<String> getAllClientNames() {
         List<String> clientNames = new ArrayList<>();
-        for(Client client : findAllClients()){
+        for (Client client : findAllClients()) {
             clientNames.add(client.getName());
         }
         return clientNames;
     }
+
 }
