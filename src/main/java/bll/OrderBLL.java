@@ -1,10 +1,10 @@
 package bll;
 
 import bll.validators.Validator;
-import dao.DAO;
 import dao.OrderDAO;
 import model.Order;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -45,7 +45,7 @@ public class OrderBLL {
         orderDAO.update(order);
     }
 
-    public void deleteOrder(int id) throws IllegalAccessException {
-        orderDAO.delete(id);
+    public void deleteOrder(Order order) throws IllegalAccessException, SQLException {
+        orderDAO.delete(order);
     }
 }

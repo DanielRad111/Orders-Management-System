@@ -9,9 +9,9 @@ public class ClientController {
     private ClientView clientView;
     private ClientBLL clientBLL;
 
-    public ClientController(ClientView clientView, ClientBLL clientBLL){
-        this.clientView = new ClientView();
-        this.clientBLL = new ClientBLL();
+    public ClientController(ClientView clientView, ClientBLL clientBLL) {
+        this.clientView = clientView;
+        this.clientBLL = clientBLL;
 
         clientView.getAddClientButton().addActionListener(e -> addClient());
         clientView.getEditClientButton().addActionListener(e -> editClient());
@@ -20,45 +20,49 @@ public class ClientController {
         refreshTable();
     }
 
-    private void addClient(){
+    private void addClient() {
+        int id = Integer.parseInt(clientView.getClientIdField().getText());
         String name = clientView.getClientNameField().getText();
         String email = clientView.getClientEmailField().getText();
-        Client client = new Client(name, email);
+        Client client = new Client(id, name, email);
         clientBLL.insertClient(client);
 
+        clientView.getClientIdField().setText("");
         clientView.getClientNameField().setText("");
         clientView.getClientEmailField().setText("");
 
         refreshTable();
     }
 
-    private void editClient(){
+    private void editClient() {
         int id = clientView.getClientId();
-        String name  = clientView.getClientNameField().getText().trim();
+        String name = clientView.getClientNameField().getText().trim();
         String email = clientView.getClientEmailField().getText().trim();
 
-        if(name.isEmpty() || email.isEmpty()) {
-            System.out.println("Name and email are empty!");
+        if (name.isEmpty() || email.isEmpty()) {
+            System.out.println("Name and email fields must not be empty.");
             return;
         }
+
         Client client = new Client(id, name, email);
         clientBLL.updateClient(client);
 
+        clientView.getClientIdField().setText("");
         clientView.getClientNameField().setText("");
         clientView.getClientEmailField().setText("");
 
         refreshTable();
     }
 
-    private void deleteClient(){
+    public void deleteClient() {
         int row = clientView.getClientTable().getSelectedRow();
-        if(row >= 0){
+        if (row >= 0) {
             int id = Integer.parseInt(clientView.getClientTable().getValueAt(row, 0).toString());
             clientBLL.deleteClient(id);
 
             refreshTable();
-        }else{
-            System.out.println("No row selected for deletion!");
+        } else {
+            System.out.println("No row selected for deletion");
         }
     }
 
