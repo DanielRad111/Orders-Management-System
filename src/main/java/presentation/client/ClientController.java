@@ -13,14 +13,20 @@ public class ClientController {
         this.clientView = clientView;
         this.clientBLL = clientBLL;
 
-        clientView.getAddClientButton().addActionListener(e -> addClient());
+        clientView.getAddClientButton().addActionListener(e -> {
+            try {
+                addClient();
+            } catch (IllegalAccessException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         clientView.getEditClientButton().addActionListener(e -> editClient());
         clientView.getDeleteClientButton().addActionListener(e -> deleteClient());
 
         refreshTable();
     }
 
-    private void addClient() {
+    private void addClient() throws IllegalAccessException {
         int id = Integer.parseInt(clientView.getClientIdField().getText());
         String name = clientView.getClientNameField().getText();
         String email = clientView.getClientEmailField().getText();
@@ -34,7 +40,7 @@ public class ClientController {
         refreshTable();
     }
 
-    private void editClient() {
+    private void editClient(){
         int id = clientView.getClientId();
         String name = clientView.getClientNameField().getText().trim();
         String email = clientView.getClientEmailField().getText().trim();

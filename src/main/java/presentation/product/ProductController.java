@@ -21,10 +21,12 @@ public class ProductController {
     }
 
     private void addProduct() {
+        int id = Integer.parseInt(productView.getProductIdField().getText());
         String name = productView.getProductNameField().getText();
         int quantity = Integer.parseInt(productView.getQuantityField().getText());
-        Product product = new Product(name, quantity);
+        Product product = new Product(id, name, quantity);
         productBll.insertProduct(product);
+        productView.getProductIdField().setText("");
         productView.getProductNameField().setText("");
         productView.getQuantityField().setText("");
         refreshTable();

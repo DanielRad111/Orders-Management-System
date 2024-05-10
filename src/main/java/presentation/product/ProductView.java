@@ -9,6 +9,7 @@ import java.awt.*;
 import java.util.List;
 
 public class ProductView extends JFrame {
+    private JTextField productIdField = new JTextField(5);
     private JTextField productNameField = new JTextField(20);
     private JTextField quantityField = new JTextField(20);
 
@@ -29,6 +30,9 @@ public class ProductView extends JFrame {
         setSize(700, 500);
         setLayout(new FlowLayout());
         setLocationRelativeTo(null);
+
+        add(new JLabel("Product ID: "));
+        add(productIdField);
 
         add(new JLabel("Product Name:"));
         add(productNameField);
@@ -53,6 +57,7 @@ public class ProductView extends JFrame {
         });
     }
 
+    public JTextField getProductIdField() {return productIdField;}
     public JTextField getProductNameField() { return productNameField; }
     public JTextField getQuantityField() { return quantityField; }
     public JButton getAddProductButton() { return addProductButton;}

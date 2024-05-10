@@ -35,7 +35,6 @@ public class AbstractDAO<T> {
         return sb.toString();
     }
 
-    ///create query with the fields from the table
     public String createInsertQuery(String[] fields)
     {
         StringBuilder sb = new StringBuilder();
@@ -60,7 +59,6 @@ public class AbstractDAO<T> {
         return sb.toString();
     }
 
-    ///create query by one field
     public String createDeleteQuery(String field)
     {
         StringBuilder sb = new StringBuilder();
@@ -71,7 +69,6 @@ public class AbstractDAO<T> {
         return sb.toString();
     }
 
-    ///create Query with table fields
     public String createEditQuery(String[] args)
     {
         StringBuilder sb = new StringBuilder();

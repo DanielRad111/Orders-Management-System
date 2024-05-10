@@ -12,11 +12,13 @@ import java.util.logging.Logger;
 
 public class ProductDAO{
     private static final Logger LOGGER = Logger.getLogger(ProductDAO.class.getName());
-    private static final String insertStatementString = "INSERT INTO product (name, quantity) VALUES (?, ?)";
+
+    private static final String insertStatementString = "INSERT INTO product (id, name, quantity) VALUES (?, ?, ?)";
     private static final String findStatementString = "SELECT * FROM product WHERE id = ?";
     private static final String findByNameStatementString = "SELECT * FROM product WHERE name = ?";
+    private static final String findAllStatementString = "SELECT * FROM product";
 
-    public static Product findById(int id){
+    public Product findById(int id){
         Product toReturn = null;
         Connection dbConnection = ConnectionFactory.getConnection();
         PreparedStatement findStatement = null;
@@ -26,6 +28,8 @@ public class ProductDAO{
             findStatement = dbConnection.prepareStatement(findStatementString);
             findStatement.setInt(1, id);
             rs = findStatement.executeQuery();
+            rs.next();
+
             String name = rs.getString("name");
             int quantity = rs.getInt("quantity");
             toReturn = new Product(id, name, quantity);
@@ -39,7 +43,7 @@ public class ProductDAO{
         return toReturn;
     }
 
-    public static Product findByName(String name){
+    public Product findByName(String name){
         Product toReturn = null;
         Connection dbConnection = ConnectionFactory.getConnection();
         PreparedStatement findStatement = null;
@@ -49,11 +53,11 @@ public class ProductDAO{
             findStatement = dbConnection.prepareStatement(findByNameStatementString);
             findStatement.setString(1, name);
             rs = findStatement.executeQuery();
-            rs.next();
-
-            int id = rs.getInt("id");
-            int quantity = rs.getInt("quantity");
-            toReturn = new Product(id, name, quantity);
+            if(rs.next()){
+                int id = rs.getInt("id");
+                int quantity = rs.getInt("quantity");
+                toReturn = new Product(id, name, quantity);
+            }
         }catch (SQLException e){
             LOGGER.log(Level.WARNING, "ProductDAO: findByName " + e.getMessage());
         }finally {
@@ -70,16 +74,14 @@ public class ProductDAO{
         Connection dbConnection = ConnectionFactory.getConnection();
         PreparedStatement findStatement = null;
         ResultSet rs = null;
-        String findStatementString = "SELECT * FROM product";
         try{
-            findStatement = dbConnection.prepareStatement(findStatementString);
+            findStatement = dbConnection.prepareStatement(findAllStatementString);
             rs = findStatement.executeQuery();
 
             while(rs.next()){
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 int quantity = rs.getInt("quantity");
-
                 products.add(new Product(id, name, quantity));
             }
         }catch (SQLException e){
@@ -92,30 +94,26 @@ public class ProductDAO{
         return products;
     }
 
-    public static int insert(Product product){
+    public void insert(Product product){
         Connection dbConnection = ConnectionFactory.getConnection();
         PreparedStatement insertStatement = null;
-        int insertedId = -1;
-        try{
-            insertStatement = dbConnection.prepareStatement(insertStatementString, Statement.RETURN_GENERATED_KEYS);
-            insertStatement.setString(1, product.getName());
-            insertStatement.setInt(2, product.getQuantity());
+        try {
+            insertStatement = dbConnection.prepareStatement(insertStatementString);
+            insertStatement.setInt(1, product.getId());
+            insertStatement.setString(2, product.getName());
+            insertStatement.setInt(3, product.getQuantity());
             insertStatement.executeUpdate();
-
-            ResultSet rs = insertStatement.getGeneratedKeys();
-            if(rs.next()){
-                insertedId = rs.getInt(1);
-            }
         }catch (SQLException e){
             LOGGER.log(Level.WARNING, "ProductDAO: insert " + e.getMessage());
         }finally {
             ConnectionFactory.close(insertStatement);
             ConnectionFactory.close(dbConnection);
         }
-        return insertedId;
     }
 
-    public static void update(Product product){
+    public void update(Product product){
+        System.out.println("ProductDAO: Updating product with ID: "+ product.getId());
+        System.out.println("New name: " + product.getName() + " , new quantity: " + product.getQuantity());
         Connection dbConnection = ConnectionFactory.getConnection();
         PreparedStatement updateStatement = null;
         String updateStatementString = "UPDATE product SET name = ?, quantity = ? WHERE id = ?";
@@ -125,7 +123,8 @@ public class ProductDAO{
             updateStatement.setString(1, product.getName());
             updateStatement.setInt(2, product.getQuantity());
             updateStatement.setInt(3, product.getId());
-            updateStatement.executeUpdate();
+            int rowsUpdated = updateStatement.executeUpdate();
+            System.out.println("Rows updated: " + rowsUpdated);
         }catch (SQLException e){
             LOGGER.log(Level.WARNING, "ProductDAO: update " + e.getMessage());
         }finally {
@@ -134,7 +133,7 @@ public class ProductDAO{
         }
     }
 
-    public static void delete(int id){
+    public void delete(int id){
         Connection dbConnection = ConnectionFactory.getConnection();
         PreparedStatement deleteStatement = null;
         String deleteStatementString = "DELETE FROM product WHERE id = ?";

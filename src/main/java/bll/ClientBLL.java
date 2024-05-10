@@ -4,14 +4,19 @@ import java.util.NoSuchElementException;
 import java.util.List;
 import java.util.ArrayList;
 
+import bll.validators.EmailValidator;
+import bll.validators.Validator;
 import dao.ClientDAO;
 import model.Client;
 
 public class ClientBLL {
 
+    private List<Validator<Client>> validators;
     private final ClientDAO clientDAO;
 
     public ClientBLL(ClientDAO clientDAO) {
+        validators = new ArrayList<Validator<Client>>();
+        validators.add(new EmailValidator());
         this.clientDAO = clientDAO;
     }
 
@@ -23,11 +28,17 @@ public class ClientBLL {
         return client;
     }
 
-    public void insertClient(Client client) {
-         clientDAO.insert(client);
+    public void insertClient(Client client) throws IllegalAccessException {
+        for (Validator<Client> validator : validators) {
+            if (validator.validate(client)) {
+                clientDAO.insert(client);
+            } else {
+                throw new IllegalAccessException("Validation failed for the client!");
+            }
+        }
     }
 
-    public void updateClient(Client client) {
+    public void updateClient(Client client){
         System.out.println("ClientBLL: Updating client with ID: " + client.getId());
         System.out.println("New name: " + client.getName() + ", new email: " + client.getEmail());
         clientDAO.update(client);

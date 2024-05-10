@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 import connection.ConnectionFactory;
 import model.Client;
 
-public class ClientDAO {
+public class ClientDAO{
     protected static final Logger LOGGER = Logger.getLogger(ClientDAO.class.getName());
 
     private static final String insertStatementString = "INSERT INTO client (id, name, email) VALUES (?,?,?)";
@@ -49,7 +49,7 @@ public class ClientDAO {
         return clients;
     }
 
-    public Client findById(int clientId) {
+    public Client findById(int id) {
         Client toReturn = null;
 
         Connection dbConnection = ConnectionFactory.getConnection();
@@ -57,13 +57,13 @@ public class ClientDAO {
         ResultSet rs = null;
         try {
             findStatement = dbConnection.prepareStatement(findStatementString);
-            findStatement.setLong(1, clientId);
+            findStatement.setInt(1, id);
             rs = findStatement.executeQuery();
             rs.next();
 
             String name = rs.getString("name");
             String email = rs.getString("email");
-            toReturn = new Client(clientId, name, email);
+            toReturn = new Client(id, name, email);
         } catch (SQLException e) {
             LOGGER.log(Level.WARNING,"ClientDAO:findById " + e.getMessage());
         } finally {
@@ -87,7 +87,6 @@ public class ClientDAO {
             if(rs.next()) {
                 int id = rs.getInt("id");
                 String email = rs.getString("email");
-
                 toReturn = new Client(id, name, email);
             }
         } catch (SQLException e) {

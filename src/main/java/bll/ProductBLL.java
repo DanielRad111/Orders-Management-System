@@ -24,15 +24,15 @@ public class ProductBLL {
     }
 
     public Product findByName(String name) {
-        Product product = ProductDAO.findByName(name);
+        Product product = productDAO.findByName(name);
         if (product == null) {
             throw new NoSuchElementException("The product with name = " + name + " was not found!");
         }
         return product;
     }
 
-    public int insertProduct(Product product) {
-        return productDAO.insert(product);
+    public void insertProduct(Product product) {
+        productDAO.insert(product);
     }
 
     public void update(Product product) {
