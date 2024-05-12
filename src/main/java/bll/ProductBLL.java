@@ -9,7 +9,7 @@ import model.Product;
 
 public class ProductBLL {
 
-    private ProductDAO productDAO;
+    private final ProductDAO productDAO;
 
     public ProductBLL() {
         productDAO = new ProductDAO();

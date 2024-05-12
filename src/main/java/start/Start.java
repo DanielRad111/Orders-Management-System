@@ -2,6 +2,7 @@ package start;
 
 import bll.*;
 import dao.ClientDAO;
+import model.Bill;
 import presentation.client.ClientController;
 import presentation.client.ClientView;
 import presentation.main.MainView;
@@ -11,6 +12,8 @@ import presentation.product.ProductController;
 import presentation.product.ProductView;
 
 import javax.swing.*;
+import java.sql.Time;
+import java.sql.Timestamp;
 
 public class Start {
     public static void main(String[] args) {

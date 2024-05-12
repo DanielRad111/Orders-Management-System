@@ -22,7 +22,6 @@ public class AbstractDAO<T> {
     @SuppressWarnings("unchecked")
     public AbstractDAO() {
         this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-
     }
 
     public String createSelectQuery(String field) {
@@ -160,7 +159,7 @@ public class AbstractDAO<T> {
                     PropertyDescriptor propertyDescriptor = new PropertyDescriptor(field.getName(), type);
                     Method method = propertyDescriptor.getWriteMethod();
                 }
-                T newObject = (T) constructors[0].newInstance(args);//create a new instance of obj <->Client newClient = new Constructor(lalalala , lalalal )
+                T newObject = (T) constructors[0].newInstance(args);
                 list.add(newObject);
             }
         }

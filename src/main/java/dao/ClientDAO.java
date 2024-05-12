@@ -1,20 +1,21 @@
 package dao;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import connection.ConnectionFactory;
 import model.Client;
 
-public class ClientDAO{
+/**
+ * Data Access Object for managing Client entities in the database.
+ */
+public class ClientDAO {
+
     protected static final Logger LOGGER = Logger.getLogger(ClientDAO.class.getName());
 
     private static final String insertStatementString = "INSERT INTO client (id, name, email) VALUES (?,?,?)";
@@ -22,6 +23,11 @@ public class ClientDAO{
     private final static String findByNameStatementString = "SELECT * FROM client where name = ?";
     private final static String findAllStatementString = "SELECT * FROM client";
 
+    /**
+     * Retrieves all clients from the database.
+     *
+     * @return A list of Client objects representing all clients in the database.
+     */
     public List<Client> findAll() {
         List<Client> clients = new ArrayList<>();
 
@@ -39,7 +45,7 @@ public class ClientDAO{
                 clients.add(new Client(id, name, email));
             }
         } catch (SQLException e) {
-            LOGGER.log(Level.WARNING,"ClientDAO:findAll " + e.getMessage());
+            LOGGER.log(Level.WARNING, "ClientDAO:findAll " + e.getMessage());
         } finally {
             ConnectionFactory.close(rs);
             ConnectionFactory.close(findStatement);
@@ -49,6 +55,12 @@ public class ClientDAO{
         return clients;
     }
 
+    /**
+     * Retrieves a client from the database by its ID.
+     *
+     * @param id The ID of the client to retrieve.
+     * @return The Client object with the specified ID, or null if not found.
+     */
     public Client findById(int id) {
         Client toReturn = null;
 
@@ -65,7 +77,7 @@ public class ClientDAO{
             String email = rs.getString("email");
             toReturn = new Client(id, name, email);
         } catch (SQLException e) {
-            LOGGER.log(Level.WARNING,"ClientDAO:findById " + e.getMessage());
+            LOGGER.log(Level.WARNING, "ClientDAO:findById " + e.getMessage());
         } finally {
             ConnectionFactory.close(rs);
             ConnectionFactory.close(findStatement);
@@ -74,6 +86,12 @@ public class ClientDAO{
         return toReturn;
     }
 
+    /**
+     * Retrieves a client from the database by its name.
+     *
+     * @param name The name of the client to retrieve.
+     * @return The Client object with the specified name, or null if not found.
+     */
     public Client findByName(String name) {
         Connection dbConnection = ConnectionFactory.getConnection();
         PreparedStatement findStatement = null;
@@ -84,13 +102,13 @@ public class ClientDAO{
             findStatement = dbConnection.prepareStatement(findByNameStatementString);
             findStatement.setString(1, name);
             rs = findStatement.executeQuery();
-            if(rs.next()) {
+            if (rs.next()) {
                 int id = rs.getInt("id");
                 String email = rs.getString("email");
                 toReturn = new Client(id, name, email);
             }
         } catch (SQLException e) {
-            LOGGER.log(Level.WARNING,"ClientDAO:findByName " + e.getMessage());
+            LOGGER.log(Level.WARNING, "ClientDAO:findByName " + e.getMessage());
         } finally {
             ConnectionFactory.close(rs);
             ConnectionFactory.close(findStatement);
@@ -99,6 +117,11 @@ public class ClientDAO{
         return toReturn;
     }
 
+    /**
+     * Inserts a new client into the database.
+     *
+     * @param client The Client object to insert.
+     */
     public void insert(Client client) {
         Connection dbConnection = ConnectionFactory.getConnection();
 
@@ -117,6 +140,11 @@ public class ClientDAO{
         }
     }
 
+    /**
+     * Updates an existing client in the database.
+     *
+     * @param client The updated Client object.
+     */
     public void update(Client client) {
         System.out.println("ClientDAO: Updating client with ID: " + client.getId());
         System.out.println("New name: " + client.getName() + ", new email: " + client.getEmail());
@@ -139,6 +167,11 @@ public class ClientDAO{
         }
     }
 
+    /**
+     * Deletes a client from the database by its ID.
+     *
+     * @param id The ID of the client to delete.
+     */
     public void delete(int id) {
         Connection dbConnection = ConnectionFactory.getConnection();
         PreparedStatement deleteStatement = null;
