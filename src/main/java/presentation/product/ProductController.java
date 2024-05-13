@@ -60,6 +60,6 @@ public class ProductController {
 
     private void refreshTable(){
         List<Product> products = productBll.findAllProducts();
-        productView.refreshTable(products);
+        productView.generateTableFromObjects(products);
     }
 }

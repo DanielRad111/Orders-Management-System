@@ -1,12 +1,16 @@
 package presentation.product;
 
 import model.Product;
+import presentation.order.OrderView;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ProductView extends JFrame {
     private JTextField productIdField = new JTextField(5);
@@ -21,9 +25,9 @@ public class ProductView extends JFrame {
     private DefaultTableModel tableModel;
 
     public ProductView(){
-        String[] columnNames = {"ID", "Name", "Quantity"};
-        tableModel = new DefaultTableModel(columnNames, 0);
-        productTable = new JTable(tableModel);
+        JScrollPane tableScrollPane = new JScrollPane();
+        productTable = new JTable();
+        tableScrollPane.setViewportView(productTable);
 
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setTitle("Products");
@@ -44,7 +48,6 @@ public class ProductView extends JFrame {
         add(editProductButton);
         add(deleteProductButton);
 
-        JScrollPane tableScrollPane = new JScrollPane(productTable);
         add(tableScrollPane);
 
         setVisible(false);
@@ -74,12 +77,29 @@ public class ProductView extends JFrame {
         }
     }
 
-    public void refreshTable(List<Product> products){
-        tableModel.setRowCount(0);
+    public void generateTableFromObjects(List<?> objects) {
+        if (objects != null && !objects.isEmpty()) {
+            Class<?> objClass = objects.get(0).getClass();
+            Field[] fields = objClass.getDeclaredFields();
+            String[] columnNames = new String[fields.length];
+            for (int i = 0; i < fields.length; i++) {
+                columnNames[i] = fields[i].getName();
+            }
+            tableModel = new DefaultTableModel(columnNames, 0);
+            productTable.setModel(tableModel);
 
-        for(Product product : products){
-            Object[] row = new Object[]{product.getId(), product.getName(), product.getQuantity()};
-            tableModel.addRow(row);
+            for (Object obj : objects) {
+                Object[] rowData = new Object[fields.length];
+                for (int i = 0; i < fields.length; i++) {
+                    fields[i].setAccessible(true);
+                    try {
+                        rowData[i] = fields[i].get(obj);
+                    } catch (IllegalAccessException e) {
+                        Logger.getLogger(OrderView.class.getName()).log(Level.SEVERE, null, e);
+                    }
+                }
+                tableModel.addRow(rowData);
+            }
         }
     }
 }

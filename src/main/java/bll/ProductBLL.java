@@ -47,11 +47,6 @@ public class ProductBLL {
         return productDAO.findAll();
     }
 
-    public String[][] generateTableFromProducts() {
-        List<Product> products = productDAO.findAll();
-        return productDAO.generateTableFromObjects(products);
-    }
-
     public List<String> getAllProductNames() {
         List<String> productNames = new ArrayList<>();
         for (Product product : findAllProducts()) {

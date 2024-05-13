@@ -10,6 +10,7 @@ import model.Product;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class OrderController {
     private OrderView orderView;
@@ -22,6 +23,8 @@ public class OrderController {
         this.orderBLL = orderBLL;
         this.clientBLL = clientBLL;
         this.productBLL = productBLL;
+
+        refreshTable();
 
         orderView.getCreateOrderButton().addActionListener(new ActionListener() {
             @Override
@@ -39,6 +42,7 @@ public class OrderController {
                         orderBLL.insertOrder(order);
                         product.setQuantity(product.getQuantity() - quantity);
                         productBLL.update(product);
+                        refreshTable();
                     }else{
                         JOptionPane.showMessageDialog(null, "The stock for the selected product is not enough for the selected quantity!","Error", JOptionPane.ERROR_MESSAGE);
                     }
@@ -47,5 +51,24 @@ public class OrderController {
                 }
             }
         });
+
+        orderView.getEditOrderButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        orderView.getDeleteOrderButton().addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+    }
+    public  void refreshTable(){
+        List<Order> orderList = orderBLL.findAllOrders();
+        orderView.generateTableFromObjects(orderList);
     }
 }

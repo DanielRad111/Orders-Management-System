@@ -74,6 +74,6 @@ public class ClientController {
 
     private void refreshTable() {
         List<Client> clients = clientBLL.findAllClients();
-        clientView.refreshTable(clients);
+        clientView.generateTableFromObjects(clients);
     }
 }

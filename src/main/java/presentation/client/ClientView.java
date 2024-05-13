@@ -2,10 +2,14 @@ package presentation.client;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 import model.Client;
+import presentation.order.OrderView;
 
 public class ClientView extends JFrame {
     private JTextField clientIdField = new JTextField(10);
@@ -21,9 +25,10 @@ public class ClientView extends JFrame {
     private DefaultTableModel tableModel;
 
     public ClientView() {
-        String[] columnNames = {"ID", "Name", "Email"};
-        tableModel = new DefaultTableModel(columnNames, 0);
-        clientTable = new JTable(tableModel);
+
+        JScrollPane jScrollPane = new JScrollPane();
+        clientTable = new JTable();
+        jScrollPane.setViewportView(clientTable);
 
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setSize(800, 400);
@@ -42,7 +47,6 @@ public class ClientView extends JFrame {
         add(editClientButton);
         add(deleteClientButton);
 
-        JScrollPane jScrollPane = new JScrollPane(clientTable);
         add(jScrollPane);
 
         setVisible(false);
@@ -92,12 +96,29 @@ public class ClientView extends JFrame {
         }
     }
 
-    public void refreshTable(List<Client> clients) {
-        tableModel.setRowCount(0);
+    public void generateTableFromObjects(List<?> objects) {
+        if (objects != null && !objects.isEmpty()) {
+            Class<?> objClass = objects.get(0).getClass();
+            Field[] fields = objClass.getDeclaredFields();
+            String[] columnNames = new String[fields.length];
+            for (int i = 0; i < fields.length; i++) {
+                columnNames[i] = fields[i].getName();
+            }
+            tableModel = new DefaultTableModel(columnNames, 0);
+            clientTable.setModel(tableModel);
 
-        for (Client client : clients) {
-            Object[] row = new Object[]{client.getId(), client.getName(), client.getEmail()};
-            tableModel.addRow(row);
+            for (Object obj : objects) {
+                Object[] rowData = new Object[fields.length];
+                for (int i = 0; i < fields.length; i++) {
+                    fields[i].setAccessible(true);
+                    try {
+                        rowData[i] = fields[i].get(obj);
+                    } catch (IllegalAccessException e) {
+                        Logger.getLogger(OrderView.class.getName()).log(Level.SEVERE, null, e);
+                    }
+                }
+                tableModel.addRow(rowData);
+            }
         }
     }
 }
