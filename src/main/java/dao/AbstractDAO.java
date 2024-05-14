@@ -14,6 +14,15 @@ import java.util.logging.Logger;
 
 import connection.ConnectionFactory;
 
+/**
+ * This class serves as a generic abstract Data Access Object (DAO) implementation, providing common CRUD operations
+ * for interacting with a database. It uses reflection to dynamically generate SQL queries based on the type of
+ * the entity being managed. Subclasses can extend this class to provide specific functionality for interacting with
+ * different types of entities in the database.
+ *
+ * @param <T> The type of entity managed by this DAO.
+ */
+
 public class AbstractDAO<T> {
     protected static final Logger LOGGER = Logger.getLogger(AbstractDAO.class.getName());
 
@@ -23,6 +32,7 @@ public class AbstractDAO<T> {
     public AbstractDAO() {
         this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
+
 
     public String createSelectQuery(String field) {
         StringBuilder sb = new StringBuilder();
@@ -83,6 +93,11 @@ public class AbstractDAO<T> {
         return sb.toString();
     }
 
+    /**
+     * Retrieves all entities of type T from the database.
+     *
+     * @return A list of all entities retrieved from the database.
+     */
     public List<T> findAll() {
         String query = new String("SELECT * FROM `"+type.getSimpleName()+"`");
         Connection connection = null;
@@ -108,6 +123,12 @@ public class AbstractDAO<T> {
         return null;
     }
 
+    /**
+     * Retrieves an entity of type T from the database by its unique identifier.
+     *
+     * @param id The unique identifier of the entity to retrieve.
+     * @return The entity with the specified id, or null if not found.
+     */
     public T findById(int id) {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -182,6 +203,13 @@ public class AbstractDAO<T> {
         return list;
     }
 
+    /**
+     * Inserts a new entity into the database.
+     *
+     * @param t The entity to insert.
+     * @return True if the insertion was successful, false otherwise.
+     * @throws IllegalAccessException If there is illegal access to the entity's fields.
+     */
     public boolean insert(T t) throws IllegalAccessException {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -230,6 +258,12 @@ public class AbstractDAO<T> {
         return true;
     }
 
+    /**
+     * Updates an existing entity in the database.
+     *
+     * @param t The entity to update.
+     * @throws IllegalAccessException If there is illegal access to the entity's fields.
+     */
     public void update(T t) throws IllegalAccessException {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -306,6 +340,13 @@ public class AbstractDAO<T> {
         return list;
     }
 
+    /**
+     * Deletes an entity from the database.
+     *
+     * @param t The entity to delete.
+     * @throws SQLException      If a database access error occurs.
+     * @throws IllegalAccessException If there is illegal access to the entity's fields.
+     */
     public void delete(T t) throws SQLException, IllegalAccessException {
         Connection connection = null;
         PreparedStatement statement = null;

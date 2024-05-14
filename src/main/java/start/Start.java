@@ -24,6 +24,7 @@ public class Start {
             ClientBLL clientBLL = new ClientBLL(clientDAO);
             ProductBLL productBLL = new ProductBLL();
             OrderBLL orderBLL = new OrderBLL();
+            BillBLL billBLL = new BillBLL();
 
             ClientView clientView = new ClientView();
             ProductView productView = new ProductView();
@@ -36,7 +37,7 @@ public class Start {
 
             mainView.getViewOrdersButton().addActionListener(e -> {
                 OrderView orderView = new OrderView(clientBLL.getAllClientNames(), productBLL.getAllProductNames());
-                new OrderController(orderView, orderBLL, clientBLL, productBLL);
+                new OrderController(orderView, orderBLL, clientBLL, productBLL, billBLL);
             });
         });
     }

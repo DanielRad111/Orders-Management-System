@@ -1,8 +1,10 @@
 package presentation.order;
 
+import bll.BillBLL;
 import bll.ClientBLL;
 import bll.OrderBLL;
 import bll.ProductBLL;
+import model.Bill;
 import model.Client;
 import model.Order;
 import model.Product;
@@ -11,6 +13,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 public class OrderController {
@@ -18,12 +21,14 @@ public class OrderController {
     private OrderBLL orderBLL;
     private ClientBLL clientBLL;
     private ProductBLL productBLL;
+    private BillBLL billBLL;
 
-    public OrderController(OrderView orderView, OrderBLL orderBLL, ClientBLL clientBLL, ProductBLL productBLL) {
+    public OrderController(OrderView orderView, OrderBLL orderBLL, ClientBLL clientBLL, ProductBLL productBLL, BillBLL billBLL) {
         this.orderView = orderView;
         this.orderBLL = orderBLL;
         this.clientBLL = clientBLL;
         this.productBLL = productBLL;
+        this.billBLL = billBLL;
 
         refreshTable();
 
@@ -44,6 +49,8 @@ public class OrderController {
                         orderBLL.insertOrder(order);
                         product.setQuantity(product.getQuantity() - quantity);
                         productBLL.update(product);
+                        Bill bill = new Bill(order.getId(), client.getName(), product.getName(), quantity, LocalDate.now());
+                        billBLL.insertBill(bill);
                         refreshTable();
                     }else{
                         JOptionPane.showMessageDialog(null, "The stock for the selected product is not enough for the selected quantity!","Error", JOptionPane.ERROR_MESSAGE);
