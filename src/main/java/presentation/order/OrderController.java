@@ -10,6 +10,7 @@ import model.Product;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.List;
 
 public class OrderController {
@@ -30,6 +31,7 @@ public class OrderController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
+                    int id = Integer.parseInt(orderView.getOrderId().getText());
                     String clientName = (String)orderView.getClientBox().getSelectedItem();
                     String productName = (String)orderView.getProductBox().getSelectedItem();
                     int quantity = Integer.parseInt(orderView.getQuantityField().getText());
@@ -38,7 +40,7 @@ public class OrderController {
                     Product product = productBLL.findByName(productName);
 
                     if(product.getQuantity() >= quantity){
-                        Order order = new Order(client.getId(), product.getId(), quantity);
+                        Order order = new Order(id, client.getId(), product.getId(), quantity);
                         orderBLL.insertOrder(order);
                         product.setQuantity(product.getQuantity() - quantity);
                         productBLL.update(product);
@@ -59,16 +61,35 @@ public class OrderController {
             }
         });
 
-        orderView.getDeleteOrderButton().addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
+        orderView.getDeleteOrderButton().addActionListener(e-> {
+            try {
+                deleteOrder();
+                refreshTable();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            } catch (IllegalAccessException ex) {
+                throw new RuntimeException(ex);
             }
         });
     }
     public  void refreshTable(){
         List<Order> orderList = orderBLL.findAllOrders();
         orderView.generateTableFromObjects(orderList);
+    }
+
+    public void deleteOrder() throws SQLException, IllegalAccessException {
+        Order toDelete;
+        int row = orderView.getOrderTable().getSelectedRow();
+        if(row >= 0){
+            int id = Integer.parseInt(orderView.getOrderTable().getModel().getValueAt(row, 0).toString());
+            int clientID = Integer.parseInt(orderView.getOrderTable().getModel().getValueAt(row, 1).toString());
+            int productID = Integer.parseInt(orderView.getOrderTable().getModel().getValueAt(row, 2).toString());
+            int quantity = Integer.parseInt(orderView.getOrderTable().getModel().getValueAt(row, 3).toString());
+            toDelete = new Order(id, clientID, productID, quantity);
+            orderBLL.deleteOrder(toDelete);
+            refreshTable();
+        }else{
+            System.out.println("No row selected");
+        }
     }
 }

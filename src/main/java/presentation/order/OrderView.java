@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class OrderView extends JFrame {
+    private JTextField orderId = new JTextField(5);
     private JComboBox<String> clientBox;
     private JComboBox<String> productBox;
     private JTextField quantityField = new JTextField(20);
@@ -35,6 +36,9 @@ public class OrderView extends JFrame {
         setLayout(new FlowLayout());
         setLocationRelativeTo(null);
 
+        add(new JLabel("Order ID:"), BorderLayout.WEST);
+        add(orderId, BorderLayout.CENTER);
+
         add(new JLabel("Client Name:"), BorderLayout.WEST);
         add(clientBox, BorderLayout.CENTER);
 
@@ -53,6 +57,9 @@ public class OrderView extends JFrame {
         setVisible(true);
     }
 
+    public JTextField getOrderId() {
+        return orderId;
+    }
     public JComboBox<String> getClientBox() {
         return clientBox;
     }
@@ -74,6 +81,10 @@ public class OrderView extends JFrame {
     }
     public JButton getDeleteOrderButton() {
         return deleteOrderButton;
+    }
+
+    public JTable getOrderTable() {
+        return orderTable;
     }
 
     public void generateTableFromObjects(List<?> objects) {
