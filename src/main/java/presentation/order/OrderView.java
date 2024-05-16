@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+/**
+ * View class for managing orders in the presentation layer.
+ */
 public class OrderView extends JFrame {
     private JTextField orderId = new JTextField(5);
     private JComboBox<String> clientBox;
@@ -22,6 +24,12 @@ public class OrderView extends JFrame {
     private JTable orderTable;
     private DefaultTableModel tableModel;
 
+    /**
+     * Constructs a new OrderView object.
+     *
+     * @param clientNames A list of client names for populating the client dropdown box.
+     * @param productNames A list of product names for populating the product dropdown box.
+     */
     public OrderView(List<String> clientNames, List<String> productNames) {
         setTitle("Order creation");
         clientBox = new JComboBox<>(clientNames.toArray(new String[0]));
@@ -87,6 +95,11 @@ public class OrderView extends JFrame {
         return orderTable;
     }
 
+    /**
+     * Generates a table from a list of objects and displays it in the order table.
+     *
+     * @param objects The list of objects to be displayed in the table.
+     */
     public void generateTableFromObjects(List<?> objects) {
         if (objects != null && !objects.isEmpty()) {
             Class<?> objClass = objects.get(0).getClass();

@@ -3,6 +3,8 @@ package start;
 import bll.*;
 import dao.ClientDAO;
 import model.Bill;
+import presentation.bill.BillController;
+import presentation.bill.BillTableView;
 import presentation.client.ClientController;
 import presentation.client.ClientView;
 import presentation.main.MainView;
@@ -14,6 +16,10 @@ import presentation.product.ProductView;
 import javax.swing.*;
 import java.sql.Time;
 import java.sql.Timestamp;
+
+/**
+* The main entry for the application.
+ */
 
 public class Start {
     public static void main(String[] args) {
@@ -38,6 +44,10 @@ public class Start {
             mainView.getViewOrdersButton().addActionListener(e -> {
                 OrderView orderView = new OrderView(clientBLL.getAllClientNames(), productBLL.getAllProductNames());
                 new OrderController(orderView, orderBLL, clientBLL, productBLL, billBLL);
+            });
+            mainView.getViewBillsButton().addActionListener(e->{
+                BillTableView billTableView = new BillTableView();
+                new BillController(billTableView, billBLL);
             });
         });
     }

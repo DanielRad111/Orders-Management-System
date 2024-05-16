@@ -6,9 +6,11 @@ import java.util.NoSuchElementException;
 
 import dao.ProductDAO;
 import model.Product;
-
+/**
+ * Business logic layer for handling Product entities.
+ */
 public class ProductBLL {
-
+    /** The Data Access Object (DAO) for Product entities. */
     private final ProductDAO productDAO;
 
     public ProductBLL() {

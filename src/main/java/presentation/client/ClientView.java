@@ -10,20 +10,30 @@ import javax.swing.table.DefaultTableModel;
 
 import model.Client;
 import presentation.order.OrderView;
-
+/**
+ * The view for managing clients, including adding, editing, and deleting clients.
+ */
 public class ClientView extends JFrame {
+    /** Text field for entering client ID. */
     private JTextField clientIdField = new JTextField(10);
+    /** Text field for entering client name. */
     private JTextField clientNameField = new JTextField(20);
+    /** Text field for entering client email. */
     private JTextField clientEmailField = new JTextField(20);
-
+    /** Button for adding a new client. */
     private JButton addClientButton = new JButton("Add Client");
+    /** Button for editing an existing client. */
     private JButton editClientButton = new JButton("Edit Client");
+    /** Button for deleting an existing client. */
     private JButton deleteClientButton = new JButton("Delete Client");
 
-
+    /** Table for displaying client information. */
     private JTable clientTable;
+    /** Table model for the client table. */
     private DefaultTableModel tableModel;
-
+    /**
+     * Constructs a new ClientView object.
+     */
     public ClientView() {
 
         JScrollPane jScrollPane = new JScrollPane();
@@ -87,6 +97,12 @@ public class ClientView extends JFrame {
         return clientTable;
     }
 
+    /**
+     * Gets the ID of the selected client from the client table.
+     *
+     * @return The ID of the selected client.
+     * @throws RuntimeException if no client is selected.
+     */
     public int getClientId() {
         int selectedRow = clientTable.getSelectedRow();
         if (selectedRow != -1) {
@@ -96,6 +112,11 @@ public class ClientView extends JFrame {
         }
     }
 
+    /**
+     * Generates a table from a list of objects.
+     *
+     * @param objects The list of objects to populate the table with.
+     */
     public void generateTableFromObjects(List<?> objects) {
         if (objects != null && !objects.isEmpty()) {
             Class<?> objClass = objects.get(0).getClass();

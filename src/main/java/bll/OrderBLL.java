@@ -8,9 +8,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-
+/**
+ * Business logic layer for handling Order entities.
+ */
 public class OrderBLL {
     private List<Validator<Order>> validators;
+    /** The Data Access Object (DAO) for Order entities. */
     private OrderDAO orderDAO;
 
     public OrderBLL() {

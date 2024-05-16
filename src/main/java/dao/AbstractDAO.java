@@ -112,7 +112,7 @@ public class AbstractDAO<T> {
             return (List<T>) list;
         }
         catch (SQLException e) {
-            LOGGER.log(Level.WARNING, type.getName() + "DAO:findById " + e.getMessage());
+            LOGGER.log(Level.WARNING, type.getName() + "DAO:findAll() " + e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -303,7 +303,7 @@ public class AbstractDAO<T> {
             statement.setInt(cnt,(Integer) args[0]);
             statement.execute();
         } catch (SQLException e) {
-            LOGGER.log(Level.WARNING, type.getName() + "DAO:insert " + e.getMessage());
+            LOGGER.log(Level.WARNING, type.getName() + "DAO:update " + e.getMessage());
         } finally {
             ConnectionFactory.close(resultSet);
             ConnectionFactory.close(statement);
@@ -364,7 +364,7 @@ public class AbstractDAO<T> {
         }
         catch (SQLException e)
         {
-            LOGGER.log(Level.WARNING, type.getName() + "DAO:insert " + e.getMessage());
+            LOGGER.log(Level.WARNING, type.getName() + "DAO:delete " + e.getMessage());
         }
         finally
         {

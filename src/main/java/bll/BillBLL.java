@@ -33,12 +33,4 @@ public class BillBLL {
     public boolean insertBill(Bill bill) throws IllegalAccessException {
         return billDAO.insert(bill);
     }
-
-    public void updateBill(Bill bill) throws IllegalAccessException {
-        billDAO.update(bill);
-    }
-
-    public void deleteBill(Bill bill) throws IllegalAccessException, SQLException {
-        billDAO.delete(bill);
-    }
 }

@@ -4,11 +4,21 @@ import bll.ClientBLL;
 import model.Client;
 
 import java.util.List;
-
+/**
+ * Controller class for managing clients in the presentation layer.
+ */
 public class ClientController {
+    /** The view for managing clients. */
     private ClientView clientView;
+    /** The bll for managing clients. */
     private ClientBLL clientBLL;
 
+    /**
+     * Constructs a new ClientController object.
+     *
+     * @param clientView The view for managing clients.
+     * @param clientBLL The bll for managing clients.
+     */
     public ClientController(ClientView clientView, ClientBLL clientBLL) {
         this.clientView = clientView;
         this.clientBLL = clientBLL;
@@ -26,6 +36,11 @@ public class ClientController {
         refreshTable();
     }
 
+    /**
+     * Adds a new client to the database.
+     *
+     * @throws IllegalAccessException if the client fails validation.
+     */
     private void addClient() throws IllegalAccessException {
         int id = Integer.parseInt(clientView.getClientIdField().getText());
         String name = clientView.getClientNameField().getText();
@@ -40,6 +55,9 @@ public class ClientController {
         refreshTable();
     }
 
+    /**
+     * Edits an existing client in the system.
+     */
     private void editClient(){
         int id = clientView.getClientId();
         String name = clientView.getClientNameField().getText().trim();
@@ -59,7 +77,9 @@ public class ClientController {
 
         refreshTable();
     }
-
+    /**
+     * Deletes an existing client from the system.
+     */
     public void deleteClient() {
         int row = clientView.getClientTable().getSelectedRow();
         if (row >= 0) {
@@ -71,7 +91,9 @@ public class ClientController {
             System.out.println("No row selected for deletion");
         }
     }
-
+    /**
+     * Refreshes the client table with updated data.
+     */
     private void refreshTable() {
         List<Client> clients = clientBLL.findAllClients();
         clientView.generateTableFromObjects(clients);

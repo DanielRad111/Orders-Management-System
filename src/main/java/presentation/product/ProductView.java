@@ -11,17 +11,25 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+/**
+ * The view for managing products, including adding, editing, and deleting products.
+ */
 public class ProductView extends JFrame {
+    /** Text field for entering product ID. */
     private JTextField productIdField = new JTextField(5);
+    /** Text field for entering product name. */
     private JTextField productNameField = new JTextField(20);
+    /** Text field for entering product quantity. */
     private JTextField quantityField = new JTextField(20);
-
+    /** Button for adding a new product. */
     private JButton addProductButton = new JButton("Add Product");
+    /** Button for editing an existing product. */
     private JButton editProductButton = new JButton("Edit Product");
+    /** Button for deleting an existing product. */
     private JButton deleteProductButton = new JButton("Delete Product");
-
+    /** Table for displaying product information. */
     private JTable productTable;
+    /** Table model for the product table. */
     private DefaultTableModel tableModel;
 
     public ProductView(){
@@ -68,6 +76,12 @@ public class ProductView extends JFrame {
     public JButton getDeleteProductButton() { return deleteProductButton; }
     public JTable getProductTable() { return productTable; }
 
+    /**
+     * Gets the ID of the selected product from the product table.
+     *
+     * @return The ID of the selected product.
+     * @throws RuntimeException if no product is selected.
+     */
     public int getproductId(){
         int selectedRow = productTable.getSelectedRow();
         if(selectedRow != -1){
@@ -77,6 +91,11 @@ public class ProductView extends JFrame {
         }
     }
 
+    /**
+     * Generates a table from a list of objects.
+     *
+     * @param objects The list of objects to populate the table with.
+     */
     public void generateTableFromObjects(List<?> objects) {
         if (objects != null && !objects.isEmpty()) {
             Class<?> objClass = objects.get(0).getClass();

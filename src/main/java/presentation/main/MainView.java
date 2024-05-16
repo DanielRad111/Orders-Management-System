@@ -8,11 +8,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+/**
+ * The main view of the application.
+ */
 public class MainView extends JFrame {
+    /** The button to view clients. */
     private JButton viewClientsButton = new JButton("View Clients");
+    /** The button to view products. */
     private JButton viewProductsButton = new JButton("View Products");
+    /** The button to view orders. */
     private JButton viewOrdersButton = new JButton("View Orders");
+    /** The button to view bills. */
+    private JButton viewBillsButton = new JButton("View Bills");
 
     public MainView(){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -23,6 +30,7 @@ public class MainView extends JFrame {
         add(viewClientsButton);
         add(viewProductsButton);
         add(viewOrdersButton);
+        add(viewBillsButton);
 
         setVisible(true);
     }
@@ -36,6 +44,7 @@ public class MainView extends JFrame {
     public JButton getViewOrdersButton() {
         return viewOrdersButton;
     }
+    public JButton getViewBillsButton() {return viewBillsButton;}
 
     public static void main(String[] args) {
         new MainView();

@@ -8,10 +8,13 @@ import bll.validators.EmailValidator;
 import bll.validators.Validator;
 import dao.ClientDAO;
 import model.Client;
-
+/**
+ * Business logic layer for handling Client entities.
+ */
 public class ClientBLL {
-
+    /** The list of validators for Client entities. */
     private List<Validator<Client>> validators;
+    /** The Data Access Object (DAO) for Client entities. */
     private final ClientDAO clientDAO;
 
     public ClientBLL(ClientDAO clientDAO) {

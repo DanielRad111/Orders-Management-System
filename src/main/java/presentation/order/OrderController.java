@@ -15,7 +15,9 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
-
+/**
+ * Controller class for managing orders in the presentation layer.
+ */
 public class OrderController {
     private OrderView orderView;
     private OrderBLL orderBLL;
@@ -23,6 +25,15 @@ public class OrderController {
     private ProductBLL productBLL;
     private BillBLL billBLL;
 
+    /**
+     * Constructs a new OrderController object.
+     *
+     * @param orderView The view associated with the order controller.
+     * @param orderBLL The bll for orders.
+     * @param clientBLL The bll for clients.
+     * @param productBLL The bll for products.
+     * @param billBLL The bll for bills.
+     */
     public OrderController(OrderView orderView, OrderBLL orderBLL, ClientBLL clientBLL, ProductBLL productBLL, BillBLL billBLL) {
         this.orderView = orderView;
         this.orderBLL = orderBLL;
@@ -79,11 +90,20 @@ public class OrderController {
             }
         });
     }
+    /**
+     * Refreshes the table displaying orders.
+     */
     public  void refreshTable(){
         List<Order> orderList = orderBLL.findAllOrders();
         orderView.generateTableFromObjects(orderList);
     }
 
+    /**
+     * Deletes the selected order.
+     *
+     * @throws SQLException If a SQL exception occurs.
+     * @throws IllegalAccessException If an illegal access exception occurs.
+     */
     public void deleteOrder() throws SQLException, IllegalAccessException {
         Order toDelete;
         int row = orderView.getOrderTable().getSelectedRow();
