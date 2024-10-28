@@ -20,7 +20,7 @@ public class BillTableView extends JFrame{
      */
     public BillTableView() {
         setTitle("Bills");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setSize(800, 600);
         setLocationRelativeTo(null);
 

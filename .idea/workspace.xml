@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="accf9c7b-bfd0-4e8a-ae25-d4fa7c47b2bf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/presentation/bill/BillTableView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/presentation/bill/BillTableView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +63,7 @@
     &quot;Application.Start.executor&quot;: &quot;Run&quot;,
     &quot;JavaScript Debug.Start.html.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/danie/Desktop/PT2021_30229_Contiu_Dragos_Assignment3-master&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -73,15 +74,15 @@
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
       </set>
     </attachedChunks>
   </component>
@@ -120,6 +121,10 @@
       <workItem from="1715849897453" duration="1386000" />
       <workItem from="1715854545500" duration="2289000" />
       <workItem from="1715860577498" duration="10000" />
+      <workItem from="1715867606911" duration="850000" />
+      <workItem from="1715872266632" duration="1230000" />
+      <workItem from="1716735755257" duration="51000" />
+      <workItem from="1716976373447" duration="1000" />
     </task>
     <servers />
   </component>
